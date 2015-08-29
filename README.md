@@ -13,5 +13,5 @@ pip install -r requirements.txt
 ```
 
 ```
-nosetests -v --with-coverage --cover-erase --cover-package=pi_pin_manager --cover-html
+nosetests -v --with-coverage --cover-erase --cover-package=pycards --cover-html
 ```

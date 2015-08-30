@@ -1,2 +1,2 @@
-from cards import Card
+from cards import Card, CardWithImages
 from decks import Deck

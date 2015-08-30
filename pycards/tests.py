@@ -1,6 +1,6 @@
 import unittest
 
-from pycards import Card
+from pycards import Card, CardWithImages
 from pycards import Deck
 from pycards.errors import NoCardsRemaining
 
@@ -26,6 +26,26 @@ class CardTestCase(unittest.TestCase):
         cards = Card.generate_cards()
         for card in cards:
             self.assertTrue(isinstance(card, Card))
+
+    def test_card_with_images(self):
+        card = CardWithImages(
+            rank='ACE',
+            suit='SPADES',
+            front_image='whatever/ACE-SPADES.png',
+            back_image='whatever/back.png')
+        self.assertEqual(card.rank, 'ACE')
+        self.assertEqual(card.suit, 'SPADES')
+        self.assertEqual(card.front_image, 'whatever/ACE-SPADES.png')
+        self.assertEqual(card.back_image, 'whatever/back.png')
+
+        r = card.__repr__()
+        self.assertEqual(r, '<CardWithImages: ACE of SPADES>')
+
+        card_dict = card.to_dict()
+        self.assertEqual(card_dict['rank'], 'ACE')
+        self.assertEqual(card_dict['suit'], 'SPADES')
+        self.assertEqual(card_dict['front_image'], 'whatever/ACE-SPADES.png')
+        self.assertEqual(card_dict['back_image'], 'whatever/back.png')
 
 
 class DeckTestCase(unittest.TestCase):

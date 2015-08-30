@@ -20,16 +20,10 @@ class Deck(object):
     def cards_removed(self):
         return len(self._cards_removed)
 
-    def shuffle_remaining(self):
-        shuffle(self._cards_remaining)
-
-    def shuffle_removed(self):
-        shuffle(self._cards_removed)
-
-    def shuffle_all(self):
+    def shuffle(self):
         self._cards_remaining.extend(self._cards_removed)
         self._cards_removed = []
-        self.shuffle_remaining()
+        shuffle(self._cards_remaining)
 
     def draw_card(self):
         try:
@@ -39,6 +33,12 @@ class Deck(object):
         else:
             self._cards_removed.append(card)
             return card
+
+    def to_dict(self):
+        return {
+            'cards_remaining': [card.to_dict() for card in self._cards_remaining],
+            'cards_removed': [card.to_dict() for card in self._cards_removed]
+        }
 
     @classmethod
     def generate_deck(cls, card_cls=DEFAULT_CARD_CLASS, card_config=None, count=1):

@@ -47,6 +47,17 @@ class CardTestCase(unittest.TestCase):
         self.assertEqual(card_dict['front_image'], 'whatever/ACE-SPADES.png')
         self.assertEqual(card_dict['back_image'], 'whatever/back.png')
 
+    def test_generate_cards_with_images(self):
+        config = {
+            'cards': ('ACE_SPADES', '2_SPADES', '3_SPADES', ),
+            'image_path': 'whatever'
+        }
+        cards = CardWithImages.generate_cards(config=config)
+        for card in cards:
+            self.assertTrue(isinstance(card, CardWithImages))
+            self.assertIn('whatever', card.front_image)
+            self.assertIn('whatever', card.back_image)
+
 
 class DeckTestCase(unittest.TestCase):
 

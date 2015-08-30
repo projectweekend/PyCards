@@ -1,3 +1,4 @@
+import json
 from random import shuffle
 from pycards.cards import StandardPlayingCard
 from pycards.errors import NoCardsRemaining
@@ -39,6 +40,9 @@ class Deck(object):
             'cards_remaining': [card.to_dict() for card in self._cards_remaining],
             'cards_removed': [card.to_dict() for card in self._cards_removed]
         }
+
+    def to_json(self):
+        return json.dumps(self.to_dict())
 
     @classmethod
     def generate_deck(cls, card_cls=DEFAULT_CARD_CLASS, card_config=None, count=1):

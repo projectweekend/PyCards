@@ -1,10 +1,10 @@
 import json
 from random import shuffle
-from pycards.cards import StandardPlayingCard
+from pycards.cards import Card
 from pycards.errors import NoCardsRemaining
 
 
-DEFAULT_CARD_CLASS = StandardPlayingCard
+DEFAULT_CARD_CLASS = Card
 
 
 class Deck(object):

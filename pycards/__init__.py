@@ -1,2 +1,2 @@
-from cards import StandardPlayingCard
+from cards import Card
 from decks import Deck

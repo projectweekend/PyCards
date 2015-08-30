@@ -1,31 +1,31 @@
 import unittest
 
-from pycards import StandardPlayingCard
+from pycards import Card
 from pycards import Deck
 from pycards.errors import NoCardsRemaining
 
 
-class StandardPlayingCardTestCase(unittest.TestCase):
+class CardTestCase(unittest.TestCase):
 
     def setUp(self):
-        super(StandardPlayingCardTestCase, self).setUp()
+        super(CardTestCase, self).setUp()
 
     def test_card(self):
-        card = StandardPlayingCard(rank='ACE', suit='SPADES')
+        card = Card(rank='ACE', suit='SPADES')
         self.assertEqual(card.rank, 'ACE')
         self.assertEqual(card.suit, 'SPADES')
 
         r = card.__repr__()
-        self.assertEqual(r, '<StandardPlayingCard: ACE of SPADES>')
+        self.assertEqual(r, '<Card: ACE of SPADES>')
 
         card_dict = card.to_dict()
         self.assertEqual(card_dict['rank'], 'ACE')
         self.assertEqual(card_dict['suit'], 'SPADES')
 
     def test_generate_cards(self):
-        cards = StandardPlayingCard.generate_cards()
+        cards = Card.generate_cards()
         for card in cards:
-            self.assertTrue(isinstance(card, StandardPlayingCard))
+            self.assertTrue(isinstance(card, Card))
 
 
 class DeckTestCase(unittest.TestCase):
@@ -42,7 +42,7 @@ class DeckTestCase(unittest.TestCase):
         self.assertEqual(deck.cards_removed, 0)
 
         card = deck.draw_card()
-        self.assertTrue(isinstance(card, StandardPlayingCard))
+        self.assertTrue(isinstance(card, Card))
         self.assertEqual(deck.cards_remaining, 51)
         self.assertEqual(deck.cards_removed, 1)
 

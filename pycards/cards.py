@@ -1,14 +1,14 @@
 from pycards.config import DEFAULT_CARDS_CONFIG
 
 
-class StandardPlayingCard(object):
+class Card(object):
 
     def __init__(self, rank, suit):
         self.rank = rank
         self.suit = suit
 
     def __repr__(self):
-        return '<StandardPlayingCard: {0} of {1}>'.format(self.rank, self.suit)
+        return '<Card: {0} of {1}>'.format(self.rank, self.suit)
 
     def to_dict(self):
         return self.__dict__

@@ -23,10 +23,10 @@ class BaseCard(object):
         return cls.from_dict(card_dict=card_dict)
 
     @classmethod
-    def generate_cards(cls, card_config):
-        if type(card_config) == str:
-            card_config = json.loads(card_config)
-        for card_dict in card_config:
+    def generate_cards(cls, config):
+        if type(config) == str:
+            config = json.loads(config)
+        for card_dict in config:
             yield cls.from_dict(card_dict=card_dict)
 
 

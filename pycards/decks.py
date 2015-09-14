@@ -1,13 +1,9 @@
 import json
 from random import shuffle
-from pycards.cards import Card
 from pycards.errors import NoCardsRemaining
 
 
-DEFAULT_CARD_CLASS = Card
-
-
-class Deck(object):
+class BaseDeck(object):
 
     def __init__(self, cards, count=1):
         self._cards_remaining = cards * count
@@ -45,9 +41,6 @@ class Deck(object):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def generate_deck(cls, card_cls=DEFAULT_CARD_CLASS, card_config=None, count=1):
-        if card_config is None:
-            cards = list(card_cls.generate_cards())
-        else:
-            cards = list(card_cls.generate_cards(config=card_config))
+    def generate_deck(cls, card_cls, card_config, count=1):
+        cards = list(card_cls.generate_cards(config=card_config))
         return cls(cards=cards, count=count)

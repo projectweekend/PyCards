@@ -1,7 +1,7 @@
 import unittest
 
-from pycards import PlayingCard, PlayingCardWithImages
-# from pycards import Deck
+from pycards import BaseCard, PlayingCard, PlayingCardWithImages
+from pycards import BaseDeck
 from pycards.errors import NoCardsRemaining
 
 
@@ -57,55 +57,46 @@ class CardTestCase(unittest.TestCase):
             self.assertTrue(isinstance(card, PlayingCardWithImages))
             self.assertIn('whatever', card.front_image)
             self.assertIn('whatever', card.back_image)
-#
-#
-# class DeckTestCase(unittest.TestCase):
-#
-#     def setUp(self):
-#         super(DeckTestCase, self).setUp()
-#         self.card_config = {
-#             'cards': ('ACE_SPADES', )
-#         }
-#
-#     def test_deck_without_config(self):
-#         deck = Deck.generate_deck()
-#         self.assertEqual(deck.cards_remaining, 52)
-#         self.assertEqual(deck.cards_removed, 0)
-#
-#         card = deck.draw_card()
-#         self.assertTrue(isinstance(card, Card))
-#         self.assertEqual(deck.cards_remaining, 51)
-#         self.assertEqual(deck.cards_removed, 1)
-#
-#         deck.shuffle()
-#         self.assertEqual(deck.cards_remaining, 52)
-#         self.assertEqual(deck.cards_removed, 0)
-#
-#     def test_deck_with_config(self):
-#         deck = Deck.generate_deck(card_config=self.card_config)
-#         self.assertEqual(deck.cards_remaining, 1)
-#         self.assertEqual(deck.cards_removed, 0)
-#
-#         card = deck.draw_card()
-#         self.assertEqual(card.rank, 'ACE')
-#         self.assertEqual(card.suit, 'SPADES')
-#         self.assertEqual(deck.cards_remaining, 0)
-#         self.assertEqual(deck.cards_removed, 1)
-#
-#         deck.shuffle()
-#         self.assertEqual(deck.cards_remaining, 1)
-#         self.assertEqual(deck.cards_removed, 0)
-#
-#     def test_drawing_from_empty_deck(self):
-#         deck = Deck.generate_deck(card_config=self.card_config)
-#         self.assertEqual(deck.cards_remaining, 1)
-#         self.assertEqual(deck.cards_removed, 0)
-#
-#         deck.draw_card()
-#         self.assertRaises(NoCardsRemaining, deck.draw_card)
-#
-#     def test_deck_to_dict(self):
-#         deck = Deck.generate_deck(card_config=self.card_config)
-#         deck_dict = deck.to_dict()
-#         self.assertEqual(deck_dict['cards_remaining'][0]['rank'], 'ACE')
-#         self.assertEqual(deck_dict['cards_remaining'][0]['suit'], 'SPADES')
+
+
+class BaseDeckTestCase(unittest.TestCase):
+
+    def setUp(self):
+        super(BaseDeckTestCase, self).setUp()
+        self.card_config = ('ACE_SPADES', )
+
+    def test_generate_base_deck(self):
+        deck = BaseDeck.generate_deck(
+            card_cls=PlayingCard,
+            card_config=self.card_config)
+        self.assertEqual(deck.cards_remaining, 1)
+        self.assertEqual(deck.cards_removed, 0)
+
+        card = deck.draw_card()
+        self.assertTrue(isinstance(card, PlayingCard))
+        self.assertEqual(card.rank, 'ACE')
+        self.assertEqual(card.suit, 'SPADES')
+        self.assertEqual(deck.cards_remaining, 0)
+        self.assertEqual(deck.cards_removed, 1)
+
+        deck.shuffle()
+        self.assertEqual(deck.cards_remaining, 1)
+        self.assertEqual(deck.cards_removed, 0)
+
+    def test_drawing_from_empty_deck(self):
+        deck = BaseDeck.generate_deck(
+            card_cls=PlayingCard,
+            card_config=self.card_config)
+        self.assertEqual(deck.cards_remaining, 1)
+        self.assertEqual(deck.cards_removed, 0)
+
+        deck.draw_card()
+        self.assertRaises(NoCardsRemaining, deck.draw_card)
+
+    def test_deck_to_dict(self):
+        deck = BaseDeck.generate_deck(
+            card_cls=PlayingCard,
+            card_config=self.card_config)
+        deck_dict = deck.to_dict()
+        self.assertEqual(deck_dict['cards_remaining'][0]['rank'], 'ACE')
+        self.assertEqual(deck_dict['cards_remaining'][0]['suit'], 'SPADES')

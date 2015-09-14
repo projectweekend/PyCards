@@ -5,36 +5,38 @@ pip install PyCards
 ```
 
 
-### Deck Class
+### Base Card Class
+This is a generic base class with no defined constructor method. It only includes helper methods for converting to and from dict/json.
 
 ```
-from pycards import Deck
+from pycards import BaseCard
 
-# Create a standard 52 card deck
-deck = Deck.generate_deck()
+card_dict = {'rank': 'ACE', 'suit': 'SPADES'}
+card = BaseCard.from_dict(card_dict=card_dict)
 
-# Number of cards remaining in deck
-deck.cards_remaining
+card_json = '{"rank": "ACE", "suit": "SPADES"}'
+card = BaseCard.from_json(card_json=card_json)
 
-# Number of cards removed from deck
-deck.cards_removed
+card.rank
+# 'ACE'
 
-# Shuffle deck
-deck.shuffle()
+card.suit
+# 'SPADES'
 
-# Draw a card from deck
-card = deck.draw_card()
+card.to_dict()
+# {'rank': 'ACE', 'suit': 'SPADES'}
 
-# Deck as a dict
-deck_dict = deck.to_dict()
+card.to_json()
+# '{"rank": "ACE", "suit": "SPADES"}'
 
+cards_config_json = '[{"rank": "ACE", "suit": "SPADES"}]'
+cards = BaseCard.generate_cards(config=cards_config_json)
 
-# generate a custom deck with only one card
-CARD_CONFIG = {
-    'cards': ('ACE_SPADES', )
-}
-
-deck = Deck.generate_deck(card_config=CARD_CONFIG)
+for card in cards:
+    print(card.rank)
+    # 'ACE'
+    print(card.suit)
+    # 'SPADES'
 ```
 
 

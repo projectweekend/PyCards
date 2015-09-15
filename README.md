@@ -8,7 +8,7 @@ pip install PyCards
 ### Base Card Class
 This is a generic base class with no defined constructor method. It only includes helper methods for converting to and from dict/json.
 
-```
+```python
 from pycards import BaseCard
 
 # Create a card instance from a dictionary
@@ -46,7 +46,7 @@ for card in cards:
 ### Base Deck Class
 This is a generic base class for interacting with a list of card objects.
 
-```
+```python
 # Create a list of cards from JSON or a list of dictionaries
 cards_config_json = '[{"rank": "ACE", "suit": "SPADES"}]'
 cards = BaseCard.generate_cards(config=cards_config_json)

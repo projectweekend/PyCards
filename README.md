@@ -11,9 +11,11 @@ This is a generic base class with no defined constructor method. It only include
 ```
 from pycards import BaseCard
 
+# Create a card instance from a dictionary
 card_dict = {'rank': 'ACE', 'suit': 'SPADES'}
 card = BaseCard.from_dict(card_dict=card_dict)
 
+# Create a card instance from JSON
 card_json = '{"rank": "ACE", "suit": "SPADES"}'
 card = BaseCard.from_json(card_json=card_json)
 
@@ -29,6 +31,7 @@ card.to_dict()
 card.to_json()
 # '{"rank": "ACE", "suit": "SPADES"}'
 
+# Create a list of cards from JSON or a list of dictionaries
 cards_config_json = '[{"rank": "ACE", "suit": "SPADES"}]'
 cards = BaseCard.generate_cards(config=cards_config_json)
 
@@ -38,6 +41,10 @@ for card in cards:
     print(card.suit)
     # 'SPADES'
 ```
+
+
+### Base Deck Class
+
 
 
 ### Run Tests

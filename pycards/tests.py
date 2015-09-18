@@ -123,6 +123,19 @@ class BaseDeckTestCase(unittest.TestCase):
         self.assertEqual(deck_dict['cards_remaining'][0]['rank'], 'ACE')
         self.assertEqual(deck_dict['cards_remaining'][0]['suit'], 'SPADES')
 
+    def test_base_deck_from_dict(self):
+        deck = BaseDeck.generate_deck(
+            card_cls=PlayingCard,
+            card_config=self.card_config)
+        deck_dict = deck.to_dict()
+
+        new_deck = BaseDeck.from_dict(card_cls=PlayingCard, deck_dict=deck_dict)
+        self.assertEqual(new_deck.cards_remaining, 1)
+
+        card = new_deck.draw_card()
+        self.assertEqual(card.suit, 'SPADES')
+        self.assertEqual(card.rank, 'ACE')
+
     def test_base_deck_to_json(self):
         deck = BaseDeck.generate_deck(
             card_cls=PlayingCard,
@@ -131,3 +144,16 @@ class BaseDeckTestCase(unittest.TestCase):
         deck_dict = json.loads(deck_json)
         self.assertEqual(deck_dict['cards_remaining'][0]['rank'], 'ACE')
         self.assertEqual(deck_dict['cards_remaining'][0]['suit'], 'SPADES')
+
+    def test_base_deck_from_json(self):
+        deck = BaseDeck.generate_deck(
+            card_cls=PlayingCard,
+            card_config=self.card_config)
+        deck_json = deck.to_json()
+
+        new_deck = BaseDeck.from_json(card_cls=PlayingCard, deck_json=deck_json)
+        self.assertEqual(new_deck.cards_remaining, 1)
+
+        card = new_deck.draw_card()
+        self.assertEqual(card.suit, 'SPADES')
+        self.assertEqual(card.rank, 'ACE')

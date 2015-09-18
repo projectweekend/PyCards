@@ -82,6 +82,12 @@ deck.to_dict()
 
 deck.to_json()
 # '{"cards_remaining": [{"rank": "ACE", "suit": "SPADES"}], "cards_removed": []}'
+
+deck_dict = {'cards_remaining': [{'rank': 'ACE', 'suit': 'SPADES'}], 'cards_removed': []}
+deck = BaseDeck.from_dict(card_cls=BaseCard, deck_dict=deck_dict)
+
+deck_json = '{"cards_remaining": [{"rank": "ACE", "suit": "SPADES"}], "cards_removed": []}'
+deck = BaseDeck.from_json(card_cls=BaseCard, deck_json=deck_json)
 ```
 
 

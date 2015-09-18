@@ -5,8 +5,8 @@ from pycards.errors import NoCardsRemaining
 
 class BaseDeck(object):
 
-    def __init__(self, cards, count=1):
-        self._cards_remaining = cards * count
+    def __init__(self, cards=None, count=1):
+        self._cards_remaining = [] if cards is None else cards * count
         self._cards_removed = []
 
     @property
@@ -39,6 +39,20 @@ class BaseDeck(object):
 
     def to_json(self):
         return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_dict(cls, card_cls, deck_dict):
+        deck = cls()
+        deck._cards_remaining = [card_cls.from_dict(card_dict=card_dict) for card_dict
+                                 in deck_dict['cards_remaining']]
+        deck._cards_removed = [card_cls.from_dict(card_dict=card_dict) for card_dict
+                               in deck_dict['cards_removed']]
+        return deck
+
+    @classmethod
+    def from_json(cls, card_cls, deck_json):
+        deck_dict = json.loads(deck_json)
+        return cls.from_dict(card_cls=card_cls, deck_dict=deck_dict)
 
     @classmethod
     def generate_deck(cls, card_cls, card_config, count=1):

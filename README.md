@@ -1,3 +1,5 @@
+[![Build Status](https://build.exitcodezero.io/api/badges/projectweekend/PyCards/status.svg)](https://build.exitcodezero.io/projectweekend/PyCards)
+
 ### Install it
 
 ```
